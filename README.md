@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Nested Routes 
+- app/info/contact/page.tsx
+- if no page.tsx in a degment it will result in 404 
 
-## Getting Started
+# Server Components vs Client Components in Next.js
 
-First, run the development server:
+Next.js provides **Server Components** and **Client Components** to optimize the rendering and data handling of your application. Below is an explanation of each, their benefits, and how to use them together.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Server Components
+
+### What are Server Components?
+- **Server Components** are components that render on the server side before sending HTML to the client.
+- These components allow you to fetch data, execute server-side logic, and handle tasks that should not run on the client (e.g., accessing a database or sensitive data).
+
+### Benefits:
+1. **Improved Performance**: Reduces the amount of JavaScript sent to the client, leading to smaller bundle sizes.
+2. **SEO Friendly**: Since the page is pre-rendered on the server, it’s ready for search engine crawlers.
+3. **Reduced Client-Side JavaScript**: No need to send JavaScript for parts of the UI that don’t require interactivity.
+
+### Usage:
+Server components can fetch data directly on the server side and render HTML.
+
+Example:
+```js
+// app/page.js (Server Component)
+import { getData } from './data'; // a function to fetch data
+
+export default async function Page() {
+    const data = await getData();
+    return (
+        <div>
+            <h1>{data.title}</h1>
+            <p>{data.description}</p>
+        </div>
+    );
+}
 ```
+### Fetching Data in Server Components
+- create tours/page.tsx 
+- just add async and start using await 
+- the same for db 
+ - Next.tsx extends the native Web fetch() API to allow each request on the server to set its own persistent caching semantics
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+ ```tsx
+ const url = 'https://www.course-api.com/react-tours-project'
+ type Tour = { 
+  id: string;
+  name: string;
+  info: string;
+  image: string;
+  price: string;
+ };
+ async function ToursPage() {
+  const response = await fecth(url);
+  const data: Tour[] = await response.json();
+  console.log(data)
+ }
+  ```
