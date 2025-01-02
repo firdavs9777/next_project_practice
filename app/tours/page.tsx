@@ -1,9 +1,10 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
 
 
- const url = 'https://www.course-api.com/react-tours-project'
- type Tour = { 
+const url = 'https://www.course-api.com/react-tours-project'
+type Tour = {
   id: string;
   name: string;
   info: string;
@@ -15,21 +16,28 @@ const fetchTours = async () => {
   const response = await fetch(url);
   const data: Tour[] = await response.json()
   return data;
- }
+}
 async function ToursPage() {
   const data = await fetchTours()
-  console.log(data)
   return (
-    <div>
-      <h1> Tours Page</h1> 
-      {data.map((tour) => {
-        return (
-          <Link key={tour.id} href={}>
-            <h2 key={tour.id}>{tour.name}</h2>
-          </Link>
-)
-      })}
-    </div>
+    <section>
+      <div>
+        <h1> Tours Page</h1>
+        <div className='grid md:grid-cols-3 gap-10'>
+          {data.map((tour) => {
+            return (
+              <Link key={tour.id} href={`/tours/${tour.id}`} className="hover:text-blue-100">
+                <div className='relative h-48 mb-2'>
+                  <Image src={tour.image} alt={tour.name} fill priority className='object-cover rounded' sizes='(max-width:768px) 100vw, (max-width:1200px) 50vw, 33vw'/>)
+                </div>
+                <h2 key={tour.id}>{tour.name}</h2>
+              </Link>
+            )
+          })}
+        </div>
+      </div>
+    </section>
+
   )
 }
 

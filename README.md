@@ -56,3 +56,55 @@ export default async function Page() {
   console.log(data)
  }
   ```
+
+
+## Routing 
+- Private Folders 
+\_folder
+- Route Groups 
+(dashboard)
+- Dynamic Routes 
+   - [...folder] - Catch all route segment 
+   - [[...folder]] - Optional catch-all route segment
+
+- create test foler app/\_css 
+- create app/(dashboard)/auth
+
+- the url is just '/auth'
+
+## Server Actions 
+- async server functions that can be called directly from your components 
+- typical setup for server state mutations (create, update, delete)
+
+- endpoint on the server (api route on Next.js)
+- make request from the front-end 
+   - setup form, handle submission etc 
+
+- Next.js server actions allow you to mutate server state directly from within a React Component by defining server-side 
+logic alongside client-side interactions
+
+Rules: 
+- must be async 
+- add 'use server' in function body (only in RSC)
+- can use in RCC but only as import 
+
+RSC - React Server Component 
+RCC  - React Client Component 
+```tsx
+export default function ServerComponent() {
+    async function myAction(formData) {
+        'use server'
+    }
+    return <form action={myAction}>....</form>
+}
+```
+- or setup in a separate file ('use server' at the top)
+  - can use in both (RSC and RCC)
+
+utils/actions 
+```tsx
+'use server';
+export async function myAction() {
+    
+}
+```
