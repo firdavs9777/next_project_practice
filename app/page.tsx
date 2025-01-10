@@ -1,14 +1,9 @@
-import React from 'react'
-import Link from 'next/link'
-const HomePage = () => {
+export default function Home() {
   return (
-    <div>
-<h1 className="text-7xl">Home Page</h1>      
-      <Link href='/about' className='text-xl text-blue-500 inline-block mt-8'>
-      About Page
-      </Link>
-    </div>
-  )
+    <main>
+      <h1 style={{ color: 'white', textAlign: 'center' }}>
+        Time to get started!
+      </h1>
+    </main>
+  );
 }
-
-export default HomePage
